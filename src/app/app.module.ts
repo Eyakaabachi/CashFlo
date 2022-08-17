@@ -9,13 +9,20 @@ import { UserComponent } from './user/user.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { signinservice } from './signin/signinservice';
+import { RouterModule, Routes } from '@angular/router';
+import { ExpenseComponent } from './expense/expense.component';
+/* const appRoutes: Routes =[
+  {path:'', component: SigninComponent },
+  {path:'signup',component: SignupComponent},
 
+]; */
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    ExpenseComponent
   ],
   imports: [
     BrowserModule,
