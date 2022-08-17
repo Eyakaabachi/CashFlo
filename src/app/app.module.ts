@@ -11,6 +11,7 @@ import { SigninComponent } from './signin/signin.component';
 import { signinservice } from './signin/signinservice';
 import { RouterModule, Routes } from '@angular/router';
 import { ExpenseComponent } from './expense/expense.component';
+import { IncomeComponent } from './income/income.component';
 /* const appRoutes: Routes =[
   {path:'', component: SigninComponent },
   {path:'signup',component: SignupComponent},
@@ -22,7 +23,8 @@ import { ExpenseComponent } from './expense/expense.component';
     UserComponent,
     SignupComponent,
     SigninComponent,
-    ExpenseComponent
+    ExpenseComponent,
+    IncomeComponent
   ],
   imports: [
     BrowserModule,
