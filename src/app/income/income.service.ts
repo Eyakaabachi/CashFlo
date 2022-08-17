@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-const baseUrl = 'http://localhost:8080/api/income';
+const baseUrl = 'http://localhost:8080/api/auth/income';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +15,7 @@ export class IncomeService {
     return this.http.get(`${baseUrl}/${id}`);
   }
   addIncome(data: any){
-    return this.http.post(baseUrl, data);
+    return this.http.post(`${baseUrl}/`, data);
   }
   updateIncome(id : any, data : any){
     return this.http.put(`${baseUrl}/${id}`, data);
