@@ -23,7 +23,7 @@ export class IncomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addIncome(): void {
+  saveChanges(): void {
     const data = {
       incomeSource: this.income.incomeSource,
       incomeMoney : this.income.incomeMoney,
@@ -43,31 +43,32 @@ export class IncomeComponent implements OnInit {
         });
   }
   updateIncome():void{
-    const data = {
-      incomeSource: this.income.incomeSource,
-      incomeMoney : this.income.incomeMoney,
-      description: this.income.description,
-      incomeStartDate : this.income.incomeStartDate,
-      incomeEndDate : this.income.incomeEndDate,
-      incomeExpireDate : this.income.incomeExpireDate
-    };
-    this.incomeservice.addIncome(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
-  }
-  
-  newTutorial(): void {
     this.submitted = false;
-    this.tutorial = {
-      title: '',
+    this.income = {
+      incomeSource: '',
+      incomeMoney: null,
       description: '',
+      incomeStartDate: null,
+      incomeEndDate: null,
+      incomeExpireDate: null,
       published: false
     };
   }
+
+  addIncome(): void {
+    this.submitted = false;
+    this.income = {
+      incomeSource: '',
+      incomeMoney: null,
+      description: '',
+      incomeStartDate: null,
+      incomeEndDate: null,
+      incomeExpireDate: null,
+      published: false
+    };
+  }
+  deleteIncome():void{
+      //this.incomeservice.deleteProduct().subscribe(() => this.getAllProducts())
+    }
+  
 }

@@ -11,25 +11,22 @@ export class IncomeService {
   getAll(): Observable<any> {
     return this.http.get(baseUrl);
   }
-  getIncomeById(id): Observable<any> {
+  getIncomeById(id: any){
     return this.http.get(`${baseUrl}/${id}`);
   }
-  addIncome(data): Observable<any> {
+  addIncome(data: any){
     return this.http.post(baseUrl, data);
   }
-  updateIncome(id, data): Observable<any> {
+  updateIncome(id : any, data : any){
     return this.http.put(`${baseUrl}/${id}`, data);
   }
-  deleteIncome(id): Observable<any> {
+  deleteIncome(id :any): Observable<any> {
     return this.http.delete(`${baseUrl}/${id}`);
   }
-  findByTitle(title): Observable<any> {
-    return this.http.get(`${baseUrl}?title=${title}`);
-  }
-  totalSumOfIncomePerMonth(IncomeStartDate,IncomeEndDate):Observable<any> {
+  totalSumOfIncomePerMonth(IncomeStartDate : any,IncomeEndDate : any):Observable<any> {
     return this.http.get(`${baseUrl}/${IncomeStartDate}/${IncomeEndDate}`);
   }
-  findHighestIncome(IncomeStartDate,IncomeEndDate):Observable<any> {
+  findHighestIncome(IncomeStartDate : any,IncomeEndDate : any):Observable<any> {
     return this.http.get(`${baseUrl}/${IncomeStartDate}/${IncomeEndDate}`);
   }
 }
