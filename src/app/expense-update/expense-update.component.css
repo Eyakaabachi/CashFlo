@@ -243,7 +243,6 @@ input {
     background: hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
   }  
 
-
   .example-h2 {
     margin: 10px;
   }

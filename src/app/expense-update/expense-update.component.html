@@ -1,20 +1,20 @@
 <form method="get" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off" role="main">
-    <h1 class="a11y-hidden">Expense</h1>
+    <h1 class="a11y-hidden">Expense Edit</h1>
     <div>
-      <div>
-        <h4>Expense Type</h4>
-        <mat-form-field appearance="fill">
-          <mat-label>Choose an option</mat-label>
-          <mat-select [disabled]="disableSelect.value">
-            <mat-option value="Transportation">Transportation</mat-option>
-            <mat-option value="Groceries" >Groceries</mat-option>
-            <mat-option value="Insurance">Insurance</mat-option>
-            <mat-option value="Bills">Bills</mat-option>
-            <mat-option value="Utilities">Utilities</mat-option>
-            <mat-option value="Subscriptions">Subscriptions</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+    <div>
+      <h4>Expense Type</h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose an option</mat-label>
+        <mat-select [disabled]="disableSelect.value">
+          <mat-option value="Transportation">Transportation</mat-option>
+          <mat-option value="Groceries" >Groceries</mat-option>
+          <mat-option value="Insurance">Insurance</mat-option>
+          <mat-option value="Bills">Bills</mat-option>
+          <mat-option value="Utilities">Utilities</mat-option>
+          <mat-option value="Subscriptions">Subscriptions</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
     <div>
       <label class="label-email">
         <input type="text" class="text" name="text" placeholder="$$$$" tabindex="1" required/>
@@ -44,8 +44,8 @@
           </mat-radio-group>
         </section>
       </div>
-    <input type="submit" (click)="addExpense()" value="Add" />
-    <input type="submit" routerLink="expense-update" value="Edit" />
+    <input type="submit" (click)="updateExpense()"  value="update" />
+    <input type="submit" (click)="deleteExpense()" value="delete" />
     <input type="submit" (click)="saveChanges()" value="Save Changes" />
 <!--     <div>
         <h4>You submitted successfully!</h4>

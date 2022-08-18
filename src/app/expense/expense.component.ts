@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ExpenseService } from './expense.service';
+
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
@@ -7,37 +10,84 @@ import { Chart } from 'chart.js';
 })
 export class ExpenseComponent implements OnInit {
 
-  constructor() { }
+  disableSelect = new FormControl(false);
 
-  ngOnInit(): void {
+    currentExpense: any;
+    expense = {
+        type : '',
+        expenseCash : null,
+        expenseExpireDate : null,
+        expensePayment : null,
+        expensePrice : null,
+        expenseRegistrationDate : null,
+        expenseEndDate : null,
+      published: false
+    };
+    submitted = false;
+    message = '';
+    constructor(private expenseservice: ExpenseService,
+      private route: ActivatedRoute,
+      private router: Router) { }
+  
+    ngOnInit(): void{
+      this.message = '';
+      this.getIncome(this.route.snapshot.paramMap.get('id'));
+    }
+    getIncome(id : any): void{
+      this.expenseservice.getExpenseById(id)
+        .subscribe(
+          data => {
+            this.currentExpense = data;
+            console.log(data);
+          },
+          error => {
+            console.log(error);
+          });
+        }
+    saveChanges(): void {
+      const data = {
+        type: this.expense.type,
+        expenseCash : this.expense.expenseCash,
+        expenseExpireDate: this.expense.expenseExpireDate,
+        expensePayment : this.expense.expensePayment,
+        expensePrice : this.expense.expensePrice,
+        expenseRegistrationDate : this.expense.expenseRegistrationDate,
+        expenseEndDate : this.expense.expenseEndDate
+      };
+      this.expenseservice.addExpense(data)
+        .subscribe(
+          response => {
+            console.log(response);
+            this.submitted = true;
+          },
+          error => {
+            console.log(error);
+          });
+    }
 
-   var myChart = new Chart("myChart", {
-      type: 'bar',
-      data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-  });
-  }
+    
+  
+    addExpense(): void {
+      this.submitted = false;
+      var data = {
+        type: this.expense.type,
+        expenseCash : this.expense.expenseCash,
+        expenseExpireDate: this.expense.expenseExpireDate,
+        expensePayment : this.expense.expensePayment,
+        expensePrice : this.expense.expensePrice,
+        expenseRegistrationDate : this.expense.expenseRegistrationDate,
+        expenseEndDate : this.expense.expenseEndDate
+      };
+      this.expenseservice.addExpense(data)
+        .subscribe(
+          response => {
+            console.log(response);
+            this.submitted = true;
+          },
+          error => {
+            console.log(error);
+          });
+    }
+
 
 }

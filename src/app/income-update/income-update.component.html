@@ -3,36 +3,36 @@
     <div *ngIf="!submitted">
     <div>
       <label class="label-email">
-        <input type="text" class="text" name="text" placeholder="Source" tabindex="1" required  [(ngModel)]="income.incomeSource"/>
+        <input type="text" class="text" name="text" placeholder="Source" tabindex="1" required/>
         <span class="required">Income Source</span>
       </label>
     </div>
     <div>
       <label class="label-email">
-        <input type="text" class="text" name="text" placeholder="$$$$" tabindex="1" required [(ngModel)]="income.incomeMoney"/>
+        <input type="text" class="text" name="text" placeholder="$$$$" tabindex="1" required/>
         <span class="required">Income Money</span>
       </label>
     </div>
     <div>
       <label class="label-email">
-        <input type="email" class="text" name="text" placeholder="Describe your income" tabindex="1" required [(ngModel)]="income.description"/>
+        <input type="email" class="text" name="text" placeholder="Describe your income" tabindex="1" required />
         <span class="required">Description</span>
       </label>
     </div>
       <div>
         <label class="label-email" for="StartDate"><span class="required">Start Date</span></label>
-        <input type="date" class="text" id="birthday" name="startdate" tabindex="1" required [(ngModel)]="income.incomeStartDate">
+        <input type="date" class="text" id="birthday" name="startdate" tabindex="1" required >
       </div>
       <div>
         <label class="label-email" for="EndDate"><span class="required">End Date</span></label>
-        <input type="date" class="text" id="birthday" name="enddate" tabindex="1" required [(ngModel)]="income.incomeEndDate">
+        <input type="date" class="text" id="birthday" name="enddate" tabindex="1" required >
       </div>
       <div>
         <label class="label-email" for="ExpireDate"><span class="required">Expire Date</span></label>
-        <input type="date" class="text" id="birthday" name="expiredate" tabindex="1" required [(ngModel)]="income.incomeExpireDate">
+        <input type="date" class="text" id="birthday" name="expiredate" tabindex="1" required>
       </div>
-    <input type="submit" (click)="addIncome()" value="Add" />
-    <input type="submit" routerLink="income-update" value="Edit" />
+    <input type="submit" (click)="updateIncome()" value="Update" />
+    <input type="submit"  (click)="deleteIncome()"value="Delete" />
     <input type="submit" (click)="saveChanges()" routerLink="home" value="Save Changes" />
     <div *ngIf="submitted">
         <h4>You submitted successfully!</h4>

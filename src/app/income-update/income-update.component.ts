@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Income } from './income';
-import { IncomeService } from './income.service';
+import { IncomeUpdateService } from './income-update.service';
 
 @Component({
-  selector: 'app-income',
-  templateUrl: './income.component.html',
-  styleUrls: ['./income.component.css']
+  selector: 'app-income-update',
+  templateUrl: './income-update.component.html',
+  styleUrls: ['./income-update.component.css']
 })
-export class IncomeComponent implements OnInit {
+export class IncomeUpdateComponent implements OnInit {
 
   currentIncome: any;
   income = {
@@ -22,7 +21,7 @@ export class IncomeComponent implements OnInit {
   };
   submitted = false;
   message = '';
-  constructor(private incomeservice: IncomeService,
+  constructor(private incomeupdateservice: IncomeUpdateService,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -31,7 +30,7 @@ export class IncomeComponent implements OnInit {
     this.getIncome(this.route.snapshot.paramMap.get('id'));
   }
   getIncome(id : any): void{
-    this.incomeservice.getIncomeById(id)
+    this.incomeupdateservice.getIncomeById(id)
       .subscribe(
         data => {
           this.currentIncome = data;
@@ -50,7 +49,7 @@ export class IncomeComponent implements OnInit {
       incomeEndDate : this.income.incomeEndDate,
       incomeExpireDate : this.income.incomeExpireDate
     };
-    this.incomeservice.addIncome(data)
+    this.incomeupdateservice.addIncome(data)
       .subscribe(
         response => {
           console.log(response);
@@ -61,7 +60,7 @@ export class IncomeComponent implements OnInit {
         });
   }
   updateIncome(): void{
-    this.incomeservice.updateIncome(this.currentIncome.id, this.currentIncome)
+    this.incomeupdateservice.updateIncome(this.currentIncome.id, this.currentIncome)
     .subscribe(
       response => {
         console.log(response);
@@ -71,30 +70,8 @@ export class IncomeComponent implements OnInit {
         console.log(error);
       });
     }
-  
-
-  addIncome(): void {
-    this.submitted = false;
-    var data = {
-      incomeSource: this.income.incomeSource,
-      incomeMoney : this.income.incomeMoney,
-      description: this.income.description,
-      incomeStartDate : this.income.incomeStartDate,
-      incomeEndDate : this.income.incomeEndDate,
-      incomeExpireDate : this.income.incomeExpireDate
-    };
-    this.incomeservice.addIncome(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
-  }
   deleteIncome():void{
-    this.incomeservice.deleteIncome(this.currentIncome.id)
+    this.incomeupdateservice.deleteIncome(this.currentIncome.id)
     .subscribe(
       response => {
         console.log(response);

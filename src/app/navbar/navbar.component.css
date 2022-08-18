@@ -1,0 +1,14 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+  .spacer2 {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+  .coloring{
+    color: primary;
+  }
+  .spacer3{
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
