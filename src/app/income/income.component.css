@@ -241,5 +241,13 @@ input {
     outline:1px dashed transparent;
     outline-offset: 2px;
     background: hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
-  }  
+  } 
+  
+  .alert {
+    color: #dd6666;
+  }
 
+  #title{
+    color:hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
+
+  }

@@ -41,36 +41,6 @@ export class IncomeComponent implements OnInit {
           console.log(error);
         });
       }
-  saveChanges(): void {
-    const data = {
-      incomeSource: this.income.incomeSource,
-      incomeMoney : this.income.incomeMoney,
-      description: this.income.description,
-      incomeStartDate : this.income.incomeStartDate,
-      incomeEndDate : this.income.incomeEndDate,
-      incomeExpireDate : this.income.incomeExpireDate
-    };
-    this.incomeservice.addIncome(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
-  }
-  updateIncome(): void{
-    this.incomeservice.updateIncome(this.currentIncome.id, this.currentIncome)
-    .subscribe(
-      response => {
-        console.log(response);
-        this.message = 'The income was updated successfully!';
-      },
-      error => {
-        console.log(error);
-      });
-    }
   
 
   addIncome(): void {
@@ -88,21 +58,11 @@ export class IncomeComponent implements OnInit {
         response => {
           console.log(response);
           this.submitted = true;
+          this.router.navigate(['/home']);
         },
         error => {
           console.log(error);
         });
   }
-  deleteIncome():void{
-    this.incomeservice.deleteIncome(this.currentIncome.id)
-    .subscribe(
-      response => {
-        console.log(response);
-        this.router.navigate(['/home']);
-      },
-      error => {
-        console.log(error);
-      });
-  
-}
+
 }

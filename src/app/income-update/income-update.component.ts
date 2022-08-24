@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable, startWith } from 'rxjs';
 import { IncomeUpdateService } from './income-update.service';
+import { Income } from '../income/income'
 
 @Component({
   selector: 'app-income-update',
@@ -8,70 +11,67 @@ import { IncomeUpdateService } from './income-update.service';
   styleUrls: ['./income-update.component.css']
 })
 export class IncomeUpdateComponent implements OnInit {
+  myControl = new FormControl('');
 
-  currentIncome: any;
-  income = {
-    incomeSource: '',
-    incomeMoney: null,
-    description: '',
-    incomeStartDate: null,
-    incomeEndDate: null,
-    incomeExpireDate: null,
-    published: false
-  };
+  currentIncome : Income = new Income();
+  currentIndex = -1;
+  incomeSource = '';
+  incomes: any;
+  test : any ;
+  listIncomes : Income[];  
+
   submitted = false;
   message = '';
   constructor(private incomeupdateservice: IncomeUpdateService,
     private route: ActivatedRoute,
     private router: Router) { }
 
-  ngOnInit(): void{
+  ngOnInit(){
     this.message = '';
-    this.getIncome(this.route.snapshot.paramMap.get('id'));
+    this.incomeupdateservice.getAll().subscribe((data: Income[])=>{ this.listIncomes= data;
+      console.log(data);
+      
+    });
   }
-  getIncome(id : any): void{
+
+  selectIncome(id : any){
     this.incomeupdateservice.getIncomeById(id)
-      .subscribe(
-        data => {
-          this.currentIncome = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-      }
-  saveChanges(): void {
-    const data = {
-      incomeSource: this.income.incomeSource,
-      incomeMoney : this.income.incomeMoney,
-      description: this.income.description,
-      incomeStartDate : this.income.incomeStartDate,
-      incomeEndDate : this.income.incomeEndDate,
-      incomeExpireDate : this.income.incomeExpireDate
-    };
-    this.incomeupdateservice.addIncome(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
+    .subscribe(
+      data => {
+        this.currentIncome = data;
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      });
   }
+
+      incomeList(): void{
+        this.incomeupdateservice.getIncomeByIncomeSource(this.incomeSource)
+        .subscribe(
+          data => {
+            this.incomes = data;
+            console.log(data);
+          },
+          error => {
+            console.log(error);
+          });
+
+      }
   updateIncome(): void{
-    this.incomeupdateservice.updateIncome(this.currentIncome.id, this.currentIncome)
+    this.incomeupdateservice.updateIncome(this.currentIncome.idIncome, this.currentIncome)
     .subscribe(
       response => {
         console.log(response);
         this.message = 'The income was updated successfully!';
+        this.router.navigate(['/income']);
       },
       error => {
         console.log(error);
       });
     }
   deleteIncome():void{
-    this.incomeupdateservice.deleteIncome(this.currentIncome.id)
+    this.incomeupdateservice.deleteIncome(this.currentIncome.idIncome)
     .subscribe(
       response => {
         console.log(response);

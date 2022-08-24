@@ -1,40 +1,74 @@
-<form method="get" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off" role="main">
-    <h1 class="a11y-hidden">Income</h1>
-    <div *ngIf="!submitted">
-    <div>
-      <label class="label-email">
-        <input type="text" class="text" name="text" placeholder="Source" tabindex="1" required  [(ngModel)]="income.incomeSource"/>
-        <span class="required">Income Source</span>
-      </label>
-    </div>
-    <div>
-      <label class="label-email">
-        <input type="text" class="text" name="text" placeholder="$$$$" tabindex="1" required [(ngModel)]="income.incomeMoney"/>
-        <span class="required">Income Money</span>
-      </label>
-    </div>
-    <div>
-      <label class="label-email">
-        <input type="email" class="text" name="text" placeholder="Describe your income" tabindex="1" required [(ngModel)]="income.description"/>
-        <span class="required">Description</span>
-      </label>
-    </div>
-      <div>
-        <label class="label-email" for="StartDate"><span class="required">Start Date</span></label>
-        <input type="date" class="text" id="birthday" name="startdate" tabindex="1" required [(ngModel)]="income.incomeStartDate">
+<form #incomeF="ngForm" method="get" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off"
+  role="main">
+  <h1 id="title">Add your Income</h1>
+  <div>
+    <label class="label-email">
+      <input type="text" class="text" #incomeSource="ngModel" name="incomeSource" placeholder="Source" tabindex="1" required
+        [(ngModel)]="income.incomeSource" />
+      <span class="required">Income Source</span>
+    </label>
+    <div *ngIf="incomeSource.invalid && (incomeSource.dirty || incomeSource.touched)" class="alert">
+      <div *ngIf="incomeSource.errors?.['required']">
+        Income source is required.
       </div>
-      <div>
-        <label class="label-email" for="EndDate"><span class="required">End Date</span></label>
-        <input type="date" class="text" id="birthday" name="enddate" tabindex="1" required [(ngModel)]="income.incomeEndDate">
+    </div>
+  </div>
+  <div>
+    <label class="label-email">
+      <input type="text" class="text" #incomeMoney="ngModel" name="incomeMoney" placeholder="$$$$" tabindex="1" required
+        [(ngModel)]="income.incomeMoney" />
+      <span class="required">Income Money</span>
+    </label>
+    <div *ngIf="incomeMoney.invalid &&  (incomeMoney.dirty || incomeMoney.touched)" class="alert">
+      <div *ngIf="incomeMoney.errors?.['required']">
+        Income money is required.
       </div>
-      <div>
-        <label class="label-email" for="ExpireDate"><span class="required">Expire Date</span></label>
-        <input type="date" class="text" id="birthday" name="expiredate" tabindex="1" required [(ngModel)]="income.incomeExpireDate">
+    </div>
+  </div>
+  <div>
+    <label class="label-email">
+      <input type="email" class="text" name="description" #description="ngModel" placeholder="Describe your income" tabindex="1"
+        required [(ngModel)]="income.description" />
+      <span class="required">Description</span>
+    </label>
+    <div *ngIf="description.invalid &&  (description.dirty || description.touched)" class="alert">
+
+      <div *ngIf="description.errors?.['required']">
+        Description is required.
       </div>
-    <input type="submit" (click)="addIncome()" value="Add" />
-    <input type="submit" routerLink="income-update" value="Edit" />
-    <input type="submit" (click)="saveChanges()" routerLink="home" value="Save Changes" />
-    <div *ngIf="submitted">
-        <h4>You submitted successfully!</h4>
-    </div></div>
-  </form>
+    </div>
+  </div>
+  <div>
+    <label class="label-email" for="StartDate"><span class="required">Start Date</span></label>
+    <input type="date" #startDate="ngModel" class="text" id="birthday" name="startdate" tabindex="1" required
+      [(ngModel)]="income.incomeStartDate">
+  </div>
+  <div *ngIf="startDate.invalid &&  (startDate.dirty || startDate.touched)" class="alert">
+
+    <div *ngIf="startDate.errors?.['required']">
+      Start date is required.
+    </div>
+  </div>
+  <div>
+    <label class="label-email" for="EndDate"><span class="required">End Date</span></label>
+    <input type="date" #endDate="ngModel" class="text" id="birthday" name="enddate" tabindex="1" required
+      [(ngModel)]="income.incomeEndDate">
+  </div>
+  <div *ngIf="endDate.invalid &&  (endDate.dirty || endDate.touched)" class="alert">
+    <div *ngIf="endDate.errors?.['required']">
+      Start date is required.
+    </div>
+  </div>
+  <div>
+    <label class="label-email" for="ExpireDate"><span class="required">Expire Date</span></label>
+    <input type="date" #expDate="ngModel" class="text" id="birthday" name="expiredate" tabindex="1" required
+      [(ngModel)]="income.incomeExpireDate">
+  </div>
+  <div *ngIf="expDate.invalid &&  (expDate.dirty || expDate.touched)" class="alert">
+    <div *ngIf="expDate.errors?.['required']">
+      Start date is required.
+    </div>
+  </div>
+  <input type="submit" (click)="addIncome()" value="Add" [disabled]="!incomeF.valid" />
+  <input type="submit" routerLink="income-update" value="Edit" />
+</form>

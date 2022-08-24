@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExpenseUpdateService } from './expense-update.service';
 import {FormControl} from '@angular/forms';
+import {Expense} from '../expense/expense';
 @Component({
   selector: 'app-expense-update',
   templateUrl: './expense-update.component.html',
@@ -10,22 +11,15 @@ import {FormControl} from '@angular/forms';
 export class ExpenseUpdateComponent implements OnInit {
 
   disableSelect = new FormControl(false);
-
-
   checked = false;
   indeterminate = false;
   disabled = false;
-  currentExpense: any;
-  expense = {
-      type : '',
-      expenseCash : null,
-      expenseExpireDate : null,
-      expensePayment : null,
-      expensePrice : null,
-      expenseRegistrationDate : null,
-      expenseEndDate : null,
-    published: false
-  };
+
+  expenses: any;
+  test : any ;
+  listExpenses : Expense[]; 
+  currentExpense : Expense = new Expense();
+  type = '';
   submitted = false;
   message = '';
   constructor(private expenseupdateservice: ExpenseUpdateService,
@@ -33,46 +27,42 @@ export class ExpenseUpdateComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void{
-    this.message = '';
-    this.getExpense(this.route.snapshot.paramMap.get('id'));
+    this.expenseupdateservice.getAll().subscribe((data: Expense[])=>{ this.listExpenses= data;
+      console.log(data);})
   }
-  getExpense(id : any): void{
-    this.expenseupdateservice.getExpenseById(id)
-      .subscribe(
-        data => {
-          this.currentExpense = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
+  getType(e:any){
+    this.expenseupdateservice.getExpenseByType(e);
+  }
+
+      selectExpense(id : any){
+        this.expenseupdateservice.getExpenseById(id)
+        .subscribe(
+          data => {
+            this.currentExpense = data;
+            console.log(data);
+          },
+          error => {
+            console.log(error);
+          });
       }
-  saveChanges(): void {
-    const data = {
-      type: this.expense.type,
-      expenseCash : this.expense.expenseCash,
-      expenseExpireDate: this.expense.expenseExpireDate,
-      expensePayment : this.expense.expensePayment,
-      expensePrice : this.expense.expensePrice,
-      expenseRegistrationDate : this.expense.expenseRegistrationDate,
-      expenseEndDate : this.expense.expenseEndDate
-    };
-    this.expenseupdateservice.addExpense(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
-  }
+      expenseList(): void{
+        this.expenseupdateservice.getExpenseByType(this.type)
+        .subscribe(
+          data => {
+            this.expenses = data;
+            console.log(data);
+          },
+          error => {
+            console.log(error);
+          });
+      }
   updateExpense(): void{
-    this.expenseupdateservice.updateExpense(this.currentExpense.id, this.currentExpense)
+    this.expenseupdateservice.updateExpense(this.currentExpense.idExpense, this.currentExpense)
     .subscribe(
       response => {
         console.log(response);
         this.message = 'The expense was updated successfully!';
+        this.router.navigate(['/expense']);
       },
       error => {
         console.log(error);
@@ -80,7 +70,7 @@ export class ExpenseUpdateComponent implements OnInit {
     }
 
   deleteExpense():void{
-    this.expenseupdateservice.deleteExpense(this.currentExpense.id)
+    this.expenseupdateservice.deleteExpense(this.currentExpense.idExpense)
     .subscribe(
       response => {
         console.log(response);
@@ -89,6 +79,12 @@ export class ExpenseUpdateComponent implements OnInit {
       error => {
         console.log(error);
       });
-  
+ 
+}
+updatePaid(value){
+  this.currentExpense.expensePayment=value
+}
+changeExpense(value){
+  this.currentExpense.type=value
 }
 }

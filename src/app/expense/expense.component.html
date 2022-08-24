@@ -1,53 +1,84 @@
-<form method="get" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off" role="main">
-    <h1 class="a11y-hidden">Expense</h1>
-    <div>
-      <div>
-        <h4>Expense Type</h4>
-        <mat-form-field appearance="fill">
-          <mat-label>Choose an option</mat-label>
-          <mat-select [disabled]="disableSelect.value">
-            <mat-option value="Transportation">Transportation</mat-option>
-            <mat-option value="Groceries" >Groceries</mat-option>
-            <mat-option value="Insurance">Insurance</mat-option>
-            <mat-option value="Bills">Bills</mat-option>
-            <mat-option value="Utilities">Utilities</mat-option>
-            <mat-option value="Subscriptions">Subscriptions</mat-option>
-          </mat-select>
-        </mat-form-field>
+<form method="get" #expF="ngForm" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off"
+  role="main">
+  <h1 id="title">Add your Expenses</h1>
+  <div>
+    <label class="label-email">
+      <span class="required">Expense Type</span></label>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose an option</mat-label>
+      <mat-select (selectionChange)="getType($event)">
+        <mat-option value="TRANSPORTATION">Transportation</mat-option>
+        <mat-option value="GROCERIES">Groceries</mat-option>
+        <mat-option value="INSURANCE">Insurance</mat-option>
+        <mat-option value="BILLS">Bills</mat-option>
+        <mat-option value="UTILITIES">Utilities</mat-option>
+        <mat-option value="SUBSCRIPTIONS">Subscriptions</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <label class="label-email">
+      <input type="text" class="text" name="expensePrice" #price="ngModel" placeholder="$$$$" tabindex="1" required
+        [(ngModel)]="expense.expensePrice" />
+      <span class="required">Expense Price</span>
+    </label>
+    <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert">
+      <div *ngIf="price.errors?.['required']">
+        Price is required.
       </div>
-    <div>
-      <label class="label-email">
-        <input type="text" class="text" name="text" placeholder="$$$$" tabindex="1" required/>
-        <span class="required">Expense Price</span>
-      </label>
     </div>
-    <div>
-        <label class="label-email">
-          <input type="text" class="text" name="text" placeholder="$$$$" tabindex="1" required/>
-          <span class="required">Expense Cash</span>
-        </label>
+  </div>
+  <div>
+    <label class="label-email">
+      <input type="text" class="text" name="expenseCash" #cash="ngModel" placeholder="$$$$" tabindex="1" required
+        [(ngModel)]="expense.expenseCash" />
+      <span class="required">Expense Cash</span>
+    </label>
+    <div *ngIf="cash.invalid && (cash.dirty || cash.touched)" class="alert">
+      <div *ngIf="cash.errors?.['required']">
+        Cash is required.
       </div>
-      <div>
-        <label class="label-email" for="StartDate"><span class="required">Registration Date</span></label>
-        <input type="date" class="text" id="birthday" name="startdate" tabindex="1" required >
+    </div>
+  </div>
+  <div>
+    <label class="label-email" for="StartDate"><span class="required">Registration Date</span></label>
+    <input type="date" class="text" #StartDate="ngModel" id="birthday" name="startdate" tabindex="1" required
+      [(ngModel)]="expense.expenseRegistrationDate" />
+    <div *ngIf="StartDate.invalid && (StartDate.dirty || StartDate.touched)" class="alert">
+      <div *ngIf="StartDate.errors?.['required']">
+        The start date is required.
       </div>
-      <div>
-        <label class="label-email" for="ExpireDate"><span class="required">Expire Date</span></label>
-        <input type="date" class="text" id="birthday" name="expiredate" tabindex="1" required >
+    </div>
+  </div>
+  <div>
+    <label class="label-email" for="EndDate"><span class="required">End Date</span></label>
+    <input type="date" class="text" #EndDate="ngModel" id="birthday" name="Enddate" tabindex="1" required
+      [(ngModel)]="expense.expenseEndDate" />
+    <div *ngIf="EndDate.invalid && (EndDate.dirty || EndDate.touched)" class="alert">
+      <div *ngIf="EndDate.errors?.['required']">
+        The end date is required.
       </div>
-      <div>
-        <section class="example-section">
-          <label class="example-margin">Paid?</label>
-          <mat-radio-group>
-            <mat-radio-button class="example-margin" value="yes">Yes</mat-radio-button>
-            <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          </mat-radio-group>
-        </section>
+    </div>
+  </div>
+  <div>
+    <label class="label-email" for="ExpireDate"><span class="required">Expire Date</span></label>
+    <input type="date" class="text" #ExpireDate="ngModel" id="birthday" name="expiredate" tabindex="1" required
+      [(ngModel)]="expense.expenseExpireDate" />
+    <div *ngIf="ExpireDate.invalid && (ExpireDate.dirty || ExpireDate.touched)" class="alert">
+      <div *ngIf="ExpireDate.errors?.['required']">
+        The expiration date is required.
       </div>
-    <input type="submit" (click)="addExpense()" value="Add" />
-    <input type="submit" routerLink="expense-update" value="Edit" />
-    <input type="submit" (click)="saveChanges()" value="Save Changes" />
-<!--     <div>
-        <h4>You submitted successfully!</h4>
-    </div> --></div>
-  </form>
+    </div>
+  </div>
+  <div>
+    <section class="example-section">
+      <label class="example-margin">Paid?</label>
+      <mat-radio-group [value]="true" (change)="getPaid($event)">
+        <mat-radio-button class="example-margin" [value]="true" ngModel="button.value">Yes</mat-radio-button>
+        <mat-radio-button class="example-margin" [value]="false" ngModel="button.value">No</mat-radio-button>
+      </mat-radio-group>
+    </section>
+  </div>
+  <input type="submit" (click)="addExpense()" value="Add" [disabled]="!expF.valid" />
+  <input type="submit" routerLink="expense-update" value="Edit" />
+</form>

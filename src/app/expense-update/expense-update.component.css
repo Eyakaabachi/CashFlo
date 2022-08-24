@@ -261,3 +261,7 @@ input {
     opacity: 0.75;
     font-size: 0.75em;
   }
+  #title{
+    color:hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
+
+  }

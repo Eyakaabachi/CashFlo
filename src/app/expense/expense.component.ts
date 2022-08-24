@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExpenseService } from './expense.service';
+import {Expense} from '../expense/expense';
 
 @Component({
   selector: 'app-expense',
@@ -14,10 +15,11 @@ export class ExpenseComponent implements OnInit {
 
     currentExpense: any;
     expense = {
+      idExpense : null,
         type : '',
         expenseCash : null,
         expenseExpireDate : null,
-        expensePayment : null,
+        expensePayment : true,
         expensePrice : null,
         expenseRegistrationDate : null,
         expenseEndDate : null,
@@ -44,29 +46,7 @@ export class ExpenseComponent implements OnInit {
             console.log(error);
           });
         }
-    saveChanges(): void {
-      const data = {
-        type: this.expense.type,
-        expenseCash : this.expense.expenseCash,
-        expenseExpireDate: this.expense.expenseExpireDate,
-        expensePayment : this.expense.expensePayment,
-        expensePrice : this.expense.expensePrice,
-        expenseRegistrationDate : this.expense.expenseRegistrationDate,
-        expenseEndDate : this.expense.expenseEndDate
-      };
-      this.expenseservice.addExpense(data)
-        .subscribe(
-          response => {
-            console.log(response);
-            this.submitted = true;
-          },
-          error => {
-            console.log(error);
-          });
-    }
 
-    
-  
     addExpense(): void {
       this.submitted = false;
       var data = {
@@ -83,11 +63,18 @@ export class ExpenseComponent implements OnInit {
           response => {
             console.log(response);
             this.submitted = true;
+            this.router.navigate(['/home']);
           },
           error => {
             console.log(error);
           });
     }
-
+   
+    getPaid(e:any){
+      this.expense.expensePayment =e.value
+    }
+    getType(e:any){
+      this.expense.type = e.value
+    }
 
 }

@@ -1,25 +1,27 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
-    <span routerLink="home"><mat-icon>account_balance_wallet</mat-icon> CashFlo</span>
-   
-     <div class="spacer"></div>
-     <span routerLink="income">Income</span>
-    <div class="spacer2"></div>
-    <span routerLink="expense">Expenses</span>
-    <div class="spacer3"></div>
+  <span routerLink="home">
+    <mat-icon>account_balance_wallet</mat-icon> CashFlo
+  </span>
 
-    <div>
-    <button mat-icon-button  [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon >more_vert</mat-icon>
+  <div class="spacer"></div>
+  <span routerLink="income">Income</span>
+  <div class="spacer2"></div>
+  <span routerLink="expense">Expenses</span>
+  <div class="spacer3"></div>
+
+  <div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="user">
+        <mat-icon color="primary">account_circle</mat-icon>
+        <span>Profile</span>
       </button>
-      <mat-menu  #menu="matMenu">
-        <button mat-menu-item routerLink="user" >
-          <mat-icon  color="primary">account_circle</mat-icon>
-          <span>Profile</span>
-        </button>
-        <button mat-menu-item routerLink="signin" >
-          <mat-icon  color="primary">logout</mat-icon>
-          <span >Signout</span>
-        </button>
-      </mat-menu></div>
-   </mat-toolbar>
-   
+      <button mat-menu-item routerLink="signin">
+        <mat-icon color="primary">logout</mat-icon>
+        <span>Signout</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

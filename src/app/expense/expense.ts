@@ -1,4 +1,5 @@
 export class Expense {
+    idExpense : any;
     type : any;
     expenseCash : any;
     expenseExpireDate : any;

@@ -428,3 +428,10 @@ figure {
     left: 52.5%;
     transform: skew(10deg) rotate(-15deg)
   }
+  #content {
+    color:hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
+  }
+  .spacer {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+  }

@@ -1,40 +1,53 @@
-<form method="get" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off" role="main">
-    <h1 class="a11y-hidden">Income</h1>
-    <div *ngIf="!submitted">
-    <div>
-      <label class="label-email">
-        <input type="text" class="text" name="text" placeholder="Source" tabindex="1" required/>
-        <span class="required">Income Source</span>
-      </label>
-    </div>
-    <div>
-      <label class="label-email">
-        <input type="text" class="text" name="text" placeholder="$$$$" tabindex="1" required/>
-        <span class="required">Income Money</span>
-      </label>
-    </div>
-    <div>
-      <label class="label-email">
-        <input type="email" class="text" name="text" placeholder="Describe your income" tabindex="1" required />
-        <span class="required">Description</span>
-      </label>
-    </div>
+<form #incomeF="ngForm" method="get" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off" role="main">
+  <h1 id="title">Edit your Income</h1>
+      <div>
+        <label class="label-email">
+        <span class="required">Choose an income to edit</span></label>
+        <mat-form-field appearance="fill" [(ngModel)]="test">
+          <mat-label>Choose an option</mat-label>
+          <mat-select (selectionChange)="selectIncome($event.value)">
+            <mat-option *ngFor="let income of listIncomes" value="{{income.idIncome}}">{{ income.incomeSource }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <label class="label-email">
+          <input type="text" class="text" name="incomeSource" placeholder="Source" tabindex="1" required
+            [(ngModel)]="currentIncome.incomeSource" />
+          <span class="required">Income Source
+          </span>
+        </label>
+      </div>
+      <div>
+        <label class="label-email">
+          <input type="text" class="text" name="incomeMoney" placeholder="$$$$" tabindex="1" required
+            [(ngModel)]="currentIncome.incomeMoney" />
+          <span class="required">Income Money</span>
+        </label>
+      </div>
+      <div>
+        <label class="label-email">
+          <input type="email" class="text" name="description" placeholder="Describe your income" tabindex="1" required
+            [(ngModel)]="currentIncome.description" />
+          <span class="required">Description</span>
+        </label>
+      </div>
       <div>
         <label class="label-email" for="StartDate"><span class="required">Start Date</span></label>
-        <input type="date" class="text" id="birthday" name="startdate" tabindex="1" required >
+        <input type="date" class="text" id="birthday" name="startdate" tabindex="1" required
+          [(ngModel)]="currentIncome.incomeStartDate" />
       </div>
       <div>
         <label class="label-email" for="EndDate"><span class="required">End Date</span></label>
-        <input type="date" class="text" id="birthday" name="enddate" tabindex="1" required >
+        <input type="date" class="text" id="birthday" name="enddate" tabindex="1" required
+          [(ngModel)]="currentIncome.incomeEndDate" />
       </div>
       <div>
         <label class="label-email" for="ExpireDate"><span class="required">Expire Date</span></label>
-        <input type="date" class="text" id="birthday" name="expiredate" tabindex="1" required>
+        <input type="date" class="text" id="birthday" name="expiredate" tabindex="1" required
+          [(ngModel)]="currentIncome.incomeExpireDate" />
       </div>
-    <input type="submit" (click)="updateIncome()" value="Update" />
-    <input type="submit"  (click)="deleteIncome()"value="Delete" />
-    <input type="submit" (click)="saveChanges()" routerLink="home" value="Save Changes" />
-    <div *ngIf="submitted">
-        <h4>You submitted successfully!</h4>
-    </div></div>
+      <input type="submit" (click)="updateIncome()" value="Update"  />
+      <input type="submit" (click)="deleteIncome()" value="Delete" />
   </form>

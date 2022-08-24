@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,6 +25,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { UserUpdateComponent } from './user-update/user-update.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
 const appRoutes: Routes =[
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
   {path:'home',component: HomeComponent},
@@ -70,6 +72,9 @@ const appRoutes: Routes =[
     MatButtonModule,
     MatCardModule,
     MatSelectModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [HttpClientModule, signinservice],

@@ -242,3 +242,16 @@ input {
     outline-offset: 2px;
     background: hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
   }  
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  #title{
+    color:hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));
+
+  }
