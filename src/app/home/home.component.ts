@@ -1,10 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { Chart } from 'chart.js';
-import { ExpenseUpdateComponent } from '../expense-update/expense-update.component';
 import { ExpenseUpdateService } from '../expense-update/expense-update.service';
+import { Expense } from '../expense/expense';
 import { IncomeUpdateService } from '../income-update/income-update.service';
 import { Income } from '../income/income';
-import { IncomeService } from '../income/income.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,13 +13,16 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   @ViewChild('pieCanvas') private pieCanvas: ElementRef;
   @ViewChild('pieBar') private pieBar: ElementRef;
-  
-  result: any;
-  coinPrice: any;
-  coinName: any;
+  @ViewChild('doughnut') private doughnut: ElementRef;
+
   chart: any = [];
+  max
+  currentmax
+  incomeSource
   listIncomesAmount = []
   ListIncomsTypes = []
+  ListExpenseTypes = []
+  ListExpenseTypeAmounts=[]
   IncomeAmount
   ExpenseAmount
   constructor(private incomeupdateservice: IncomeUpdateService, private expenseupdateservice : ExpenseUpdateService) {
@@ -52,7 +54,31 @@ export class HomeComponent implements AfterViewInit, OnInit {
         }})
       this.pieChartBrowser();
     });
+
+    this.expenseupdateservice.getAll().subscribe((data: Expense[]) => {
+      data.map(name => {
+        if (!this.ListExpenseTypes.find(dataName => dataName == name.type) && name.type !== '') {
+          this.ListExpenseTypeAmounts.push((data.map(money => {
+            if (name.type !== '') {
+              if (money.type == name.type)
+                return money.expensePrice
+            }
+            return 0
+          })).reduce((x1, x2) => {
+            if (x2 !== '') return parseFloat(x1 + x2)
+            else return x1 + 0
+
+          }, 0))
+          this.ListExpenseTypes.push(name.type)
+        }})
+      this.doughnutBrowser();});
+    
+    this.incomeupdateservice.findHighestIncome('1998-5-5', '2028-5-5').subscribe(data => {
+      this.max = data;
+      console.log(data);
+    })
   }
+
   pieChart: any;
 
   ngAfterViewInit(): void {
@@ -98,9 +124,33 @@ export class HomeComponent implements AfterViewInit, OnInit {
           ],
           borderWidth: 1
         }]
-      },
+      },options: {
+        responsive: true,
+        
+      }
     }
     );
   }
 
+  doughnutBrowser():void{
+
+    new Chart(this.doughnut.nativeElement, {
+      type :'doughnut',
+      data:{
+        labels:[...this.ListExpenseTypes],
+        datasets:[{
+          label: 'Dataset 1',
+          data: [...this.ListExpenseTypeAmounts],
+          backgroundColor: [
+            '#2ecc71',
+            '#3498db',
+            '#95a5a6',
+            '#9b59b6',
+            '#f1c40f',
+            '#e74c3c'
+          ],
+        }]
+      }
+    });
+  }
 }

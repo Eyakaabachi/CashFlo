@@ -1,8 +1,8 @@
-<mat-card class="example-card">
+<mat-card class="example-card" style="background-color:#becae3;">
   <form method="get" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off" role="main">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title >{{currentUser.username}}</mat-card-title>
+      <mat-card-title style="color : hsl(var(--fgColorH), var(--fgColorS), var(--fgColorL));">{{currentUser.username}}</mat-card-title>
       <mat-card-subtitle>{{currentUser.firstName}} {{currentUser.lastName}}</mat-card-subtitle>
     </mat-card-header>
         <figure aria-hidden="true">
@@ -19,7 +19,7 @@
         </figure>
 </form>
 <br>
-    <mat-card-content id="content">
+    <mat-card-content id="content" >
         <p><span id="content">Email: </span> {{currentUser.email}}</p>
         <p><span id="content">Gender:</span> {{currentUser.gender}}</p>
         <p><span id="content">Birth Date:</span> {{currentUser.birthDate}}</p>

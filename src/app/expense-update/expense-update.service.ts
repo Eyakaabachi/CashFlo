@@ -28,7 +28,7 @@ export class ExpenseUpdateService {
     return this.http.get(`${baseUrl}/getsumofexpenses/${expenseStartDate}/${expenseEndDate}`);
   }
   remainingCash(idExpense : any):Observable<any> {
-    return this.http.get(`${baseUrl}/${idExpense}`);
+    return this.http.get(`${baseUrl}/getremainingcash/${idExpense}`);
   }
   getExpenseByType(type:any):Observable<any>{
     return this.http.get(`${baseUrl}/get/${type}`);}

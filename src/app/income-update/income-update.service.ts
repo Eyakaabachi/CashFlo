@@ -28,7 +28,7 @@ export class IncomeUpdateService {
     return this.http.get(`${baseUrl}/getsumofincomes/${IncomeStartDate}/${IncomeEndDate}`);
   }
   findHighestIncome(IncomeStartDate : any,IncomeEndDate : any):Observable<any> {
-    return this.http.get(`${baseUrl}/${IncomeStartDate}/${IncomeEndDate}`);
+    return this.http.get(`${baseUrl}/gethighestincome/${IncomeStartDate}/${IncomeEndDate}`);
   }
   getIncomeByIncomeSource(incomeSource:any):Observable<any>{
     return this.http.get(`${baseUrl}/get/${incomeSource}`);

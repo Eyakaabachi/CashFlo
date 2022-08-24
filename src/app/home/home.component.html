@@ -1,9 +1,16 @@
 <div>
+    <mat-card class="example-card">
+    <h1 style="color:#4863A0; text-align: center;">Income Sources</h1>
+    <canvas #pieCanvas style="height:200; width:400"></canvas></mat-card>
+    <mat-card class="example-card">
     <br>
-    <h1 style="color:#4863A0;">Income Sources</h1>
-    <canvas #pieCanvas style="height:200; width:400"></canvas>
+    <h1 style="color:#4863A0; text-align: center;">Income vs Expenses</h1>
+    <canvas #pieBar style="height:200; width:400"></canvas></mat-card>
+    <mat-card class="example-card">
+    <h1 style="color:#4863A0; text-align: center;">Expenses</h1>
+    <canvas #doughnut style="height:200; width:400" ></canvas>
     <br>
-    <h1 style="color:#4863A0;">Income/Expenses of the month</h1>
-    <canvas #pieBar style="height:200; width:400"></canvas>
-
+    <h4>The highest income you received this month is: {{max}}</h4>
+</mat-card>
+    <br>
 </div>
