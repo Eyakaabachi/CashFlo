@@ -25,6 +25,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
   ListExpenseTypeAmounts=[]
   IncomeAmount
   ExpenseAmount
+  start : Date;
+  end : Date;
   constructor(private incomeupdateservice: IncomeUpdateService, private expenseupdateservice : ExpenseUpdateService) {
 
   }
@@ -77,6 +79,16 @@ export class HomeComponent implements AfterViewInit, OnInit {
       this.max = data;
       console.log(data);
     })
+  }
+  fetchDate(value1,value2){
+    this.start=value1;
+    this.end=value2;
+    this.incomeupdateservice.totalSumOfIncomePerMonth(this.start, this.end).subscribe(data => {
+      this.IncomeAmount = data;
+      this.barBrowser();})
+      this.expenseupdateservice.totalSumOfExpensePerMonth(this.start, this.end).subscribe(data => {
+        this.ExpenseAmount = data;
+        this.barBrowser();})  
   }
 
   pieChart: any;

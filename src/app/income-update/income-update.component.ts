@@ -19,7 +19,7 @@ export class IncomeUpdateComponent implements OnInit {
   incomes: any;
   test : any ;
   listIncomes : Income[];  
-
+  optionVisible = true
   submitted = false;
   message = '';
   constructor(private incomeupdateservice: IncomeUpdateService,
@@ -32,6 +32,13 @@ export class IncomeUpdateComponent implements OnInit {
       console.log(data);
       
     });
+    this.incomeupdateservice.selectedIncomeToEdit.subscribe(res=>{
+      if (res){
+        this.selectIncome(res?.idIncome)
+        this.optionVisible= false
+      }
+      else this.optionVisible= true
+    })
   }
 
   selectIncome(id : any){
@@ -64,7 +71,7 @@ export class IncomeUpdateComponent implements OnInit {
       response => {
         console.log(response);
         this.message = 'The income was updated successfully!';
-        this.router.navigate(['/income']);
+        this.router.navigate(['/all']);
       },
       error => {
         console.log(error);
@@ -75,11 +82,11 @@ export class IncomeUpdateComponent implements OnInit {
     .subscribe(
       response => {
         console.log(response);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/all']);
       },
       error => {
         console.log(error);
       });
-  
 }
+
 }

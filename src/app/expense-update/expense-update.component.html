@@ -1,6 +1,6 @@
 <form method="get"  #expF="ngForm" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off" role="main">
   <h1 id="title">Edit your Expenses</h1>
-      <div>
+      <div *ngIf="optionVisible">
         <label class="label-email">
           <span class="required">Choose expense to edit</span></label>
         <mat-form-field appearance="fill" [(ngModel)]="test">

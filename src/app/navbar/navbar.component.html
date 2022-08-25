@@ -4,9 +4,9 @@
   </span>
 
   <div class="spacer"></div>
-  <span routerLink="income">Income</span>
+  <span [matMenuTriggerFor]="incomeMenu">Income</span>
   <div class="spacer2"></div>
-  <span routerLink="expense">Expenses</span>
+  <span [matMenuTriggerFor]="expenseMenu">Expenses</span>
   <div class="spacer3"></div>
 
   <div>
@@ -18,10 +18,43 @@
         <mat-icon color="primary">account_circle</mat-icon>
         <span>Profile</span>
       </button>
+
       <button mat-menu-item routerLink="signin">
         <mat-icon color="primary">logout</mat-icon>
         <span>Signout</span>
       </button>
+    </mat-menu>
+  </div>
+
+  <div>
+    <mat-menu #incomeMenu="matMenu">
+
+      <button mat-menu-item routerLink="all">
+        <mat-icon color="primary">dashboard</mat-icon>
+        <span>All</span>
+      </button>
+
+      <button mat-menu-item routerLink="income">
+        <mat-icon color="primary">add</mat-icon>
+        <span>Add Income</span>
+      </button>
+
+    </mat-menu>
+  </div>
+
+  <div>
+    <mat-menu #expenseMenu="matMenu">
+
+      <button mat-menu-item routerLink="expenselist">
+        <mat-icon color="primary">dashboard</mat-icon>
+        <span>All</span>
+      </button>
+
+      <button mat-menu-item routerLink="expense">
+        <mat-icon color="primary">add</mat-icon>
+        <span>Add Expense</span>
+      </button>
+
     </mat-menu>
   </div>
 </mat-toolbar>

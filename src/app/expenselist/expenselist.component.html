@@ -1,0 +1,13 @@
+
+<mat-list role="list">
+    <mat-card>
+    <mat-card-title style="color:#4775d1;">Expenses List</mat-card-title>
+    <div class="row" *ngFor="let i of listExpenseType">
+        <div style="color:#1e3d7b;"> <b>{{i.expenseRegistrationDate}}</b> </div>
+        <div> {{i.type}}</div>
+        <div>{{i.expensePrice}}Dt </div>
+        <div><button mat-flat-button color="primary" type="submit" routerLink="expense-update" (click)="selectExpenseToEdit(i)">Edit</button></div>
+    </div>
+</mat-card>
+    
+</mat-list>

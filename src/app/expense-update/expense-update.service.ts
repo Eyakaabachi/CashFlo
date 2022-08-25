@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {Expense} from '../expense/expense';
 const baseUrl = 'http://localhost:8080/expense';
 @Injectable({
@@ -8,6 +8,9 @@ const baseUrl = 'http://localhost:8080/expense';
 })
 export class ExpenseUpdateService {
 
+  public selectedExpenseToEdit = new BehaviorSubject(null) 
+
+  
   constructor(private http: HttpClient) { }
   getAll(): Observable<any> {
     return this.http.get(baseUrl+"/getall");
@@ -32,4 +35,10 @@ export class ExpenseUpdateService {
   }
   getExpenseByType(type:any):Observable<any>{
     return this.http.get(`${baseUrl}/get/${type}`);}
+
+  getAllSortedByDate():Observable<any>{
+    return this.http.get(`${baseUrl}/getallsorted`);
+  }
+
+  
 }

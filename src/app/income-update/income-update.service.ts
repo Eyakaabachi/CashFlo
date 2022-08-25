@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Income } from '../income/income'
 const baseUrl = 'http://localhost:8080/income';
 @Injectable({
   providedIn: 'root'
 })
 export class IncomeUpdateService {
-
+  public selectedIncomeToEdit = new BehaviorSubject(null) 
   constructor(private http: HttpClient) { }
   getAll(): Observable<any> {
     return this.http.get(baseUrl+"/getall");
@@ -32,6 +32,8 @@ export class IncomeUpdateService {
   }
   getIncomeByIncomeSource(incomeSource:any):Observable<any>{
     return this.http.get(`${baseUrl}/get/${incomeSource}`);
-
+  }
+  getAllSortedByDate():Observable<any>{
+    return this.http.get(`${baseUrl}/getallsorted`);
   }
 }

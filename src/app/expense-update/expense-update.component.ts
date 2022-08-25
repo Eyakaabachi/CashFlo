@@ -22,6 +22,7 @@ export class ExpenseUpdateComponent implements OnInit {
   type = '';
   submitted = false;
   message = '';
+  optionVisible = true
   constructor(private expenseupdateservice: ExpenseUpdateService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -29,6 +30,14 @@ export class ExpenseUpdateComponent implements OnInit {
   ngOnInit(): void{
     this.expenseupdateservice.getAll().subscribe((data: Expense[])=>{ this.listExpenses= data;
       console.log(data);})
+
+      this.expenseupdateservice.selectedExpenseToEdit.subscribe(res=>{
+        if (res){
+          this.selectExpense(res?.idExpense)
+          this.optionVisible= false
+        }
+        else this.optionVisible= true
+      })
   }
   getType(e:any){
     this.expenseupdateservice.getExpenseByType(e);
@@ -62,7 +71,7 @@ export class ExpenseUpdateComponent implements OnInit {
       response => {
         console.log(response);
         this.message = 'The expense was updated successfully!';
-        this.router.navigate(['/expense']);
+        this.router.navigate(['/expenselist']);
       },
       error => {
         console.log(error);
@@ -74,7 +83,7 @@ export class ExpenseUpdateComponent implements OnInit {
     .subscribe(
       response => {
         console.log(response);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/expenselist']);
       },
       error => {
         console.log(error);

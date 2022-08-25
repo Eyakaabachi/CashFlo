@@ -27,6 +27,10 @@ import {MatCardModule} from '@angular/material/card';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AllComponent } from './all/all.component';
+import {MatListModule} from '@angular/material/list';
+import { ExpenselistComponent } from './expenselist/expenselist.component';
+
 const appRoutes: Routes =[
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
   {path:'home',component: HomeComponent},
@@ -35,11 +39,13 @@ const appRoutes: Routes =[
   {path:'user',component: UserComponent},
   {path:'expense', component: ExpenseComponent },
   {path:'income',component: IncomeComponent},
-  {path:'expense/expense-update', component: ExpenseUpdateComponent},
-  {path:'income/income-update', component: IncomeUpdateComponent},
+  {path:'expenselist/expense-update', component: ExpenseUpdateComponent},
+  {path:'all/income-update', component: IncomeUpdateComponent},
   {path:'user/signin',component: SigninComponent},
   {path:'user/user-update',component: UserUpdateComponent},
   {path:'user/user-update/user',component:UserComponent},
+  {path:'all', component : AllComponent},
+  {path:'expenselist', component : ExpenselistComponent}
 ];
 
 @NgModule({
@@ -55,6 +61,8 @@ const appRoutes: Routes =[
     IncomeUpdateComponent,
     NavbarComponent,
     UserUpdateComponent,
+    AllComponent,
+    ExpenselistComponent,
     
 
   ],
@@ -75,6 +83,7 @@ const appRoutes: Routes =[
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatListModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [HttpClientModule, signinservice],

@@ -1,0 +1,11 @@
+<mat-list role="list">
+    <mat-card>
+    <mat-card-title style="color:#4775d1;">Income List</mat-card-title>
+    <div class="row"  *ngFor="let i of listIncomeType">
+        <div style="color:#1e3d7b;"> <b>{{i.incomeStartDate}}</b>        </div>
+         <div> {{i.incomeSource}}</div>
+         <div>{{i.incomeMoney}}Dt </div>
+         <div><button mat-flat-button color="primary" type="submit" routerLink="income-update" (click)="selectIncomeToEdit(i)">Edit </button></div>
+    </div >
+</mat-card>
+  </mat-list>

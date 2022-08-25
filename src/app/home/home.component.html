@@ -1,3 +1,11 @@
+<head>
+    <link rel="stylesheet" 
+    href=
+"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity=
+"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+    crossorigin="anonymous">
+</head>
 <div>
     <mat-card class="example-card">
     <h1 style="color:#4863A0; text-align: center;">Income Sources</h1>
@@ -6,8 +14,23 @@
     <h4>The highest income you received this month is: {{max}}</h4></mat-card>
     <mat-card class="example-card">
     <br>
+    <form class="form-inline" action="/action_page.php" >
     <h1 style="color:#4863A0; text-align: center;">Income vs Expenses</h1>
-    <canvas #pieBar style="height:200; width:400"></canvas></mat-card>
+    <canvas #pieBar style="height:200; width:400"></canvas>
+    <br>
+    <div style="flex-direction: row;">
+        <label class="label-email" for="StartDate"><span class="required">Start Date</span></label>
+        <input type="date" class="text" id="birthday" name="startdate" tabindex="1" class="form-control" 
+          [(ngModel)]="start"/>
+      </div>
+      <div>
+        <label class="label-email" for="EndDate"><span class="required">End Date</span></label>
+        <input type="date" class="text" id="birthday" name="enddate" tabindex="1" class="form-control" 
+          [(ngModel)]="end" />
+      </div>
+      </form>
+      <input type="submit" (click)="fetchDate(start,end)" value="Load" class="form-control"  />
+</mat-card>
     <mat-card class="example-card">
     <h1 style="color:#4863A0; text-align: center;">Expenses</h1>
     <canvas #doughnut style="height:200; width:400" ></canvas>
